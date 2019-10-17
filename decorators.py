@@ -173,3 +173,25 @@ def aFuntion():
     print "inside aFunction"
 
 print "Decorating function finished"
+
+
+
+# Class Decorators
+# Class Decorators is introduced in Python 2.6.  
+# A class decorator is a function which gets a python class as an input..
+
+def trace(kls):
+    original_init = kls.__init__
+    def __init__(self, *args, **kws):
+        print("Instantiating an object of class {}".format(kls.__name__))
+        original_init(self, *args, **kws)
+    kls.__init__ = __init__
+    return kls
+
+@trace
+class Foo(object):
+    def __init__(self, value):
+        self.value = value
+
+foo = Foo(5)
+print("The value of foo is {}".format(foo.value))

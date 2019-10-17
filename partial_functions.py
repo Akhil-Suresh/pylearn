@@ -17,56 +17,31 @@ from functools import partial
 from functools import wraps
 
 
-# def power(x, y):
-# 	return x ** y
+def power(x, y):
+	return x ** y
 
-# power(2, 2)
+power(2, 2)
 
-# find_square = partial(power,2)
-# find_cube = partial(power, 3)
+find_square = partial(power,2)
+find_cube = partial(power, 3)
 
-# print find_square(3)
-# print find_cube(2)
-
-
+print find_square(3)
+print find_cube(2)
 
 
+def decorator_function(function, argument):
+    # magic sauce to lift the name and doc of the function
+    @wraps(function)
+    def ret_fun(*args, **kwargs):
+        #do stuff here, for eg.
+        print ("decorator arg is %s" % str(argument))
+        return fun(*args, **kwargs)
+    return ret_fun
 
+decorator_main_function = partial(decorator_function, argument=arg)
 
+@decorator_main('access_granted')
+def main(*args, **kwargs):
+    pass
 
-
-
-# def decorator_function(function, argument):
-#     # magic sauce to lift the name and doc of the function
-#     @wraps(function)
-#     def ret_fun(*args, **kwargs):
-#         #do stuff here, for eg.
-#         print ("decorator arg is %s" % str(argument))
-#         return fun(*args, **kwargs)
-#     return ret_fun
-
-# decorator_main_function = partial(decorator_function, argument=arg)
-
-# @decorator_main('access_granted')
-# def main(*args, **kwargs):
-#     pass
-
-# main('car')
-
-
-# Class realization of Decorator
-#  Without parameters
-class PrettyPrint(object):
-    def __init__(self, func):
-        print "inside my decorator init"
-        func()       
-    def __call__(self):
-        print " Inside call of function"
-
-@PrettyPrint
-def aFunction():
-    print "inside aFunction"
-
-aFunction()
-print "Decorating function finished"
-
+main('car')
