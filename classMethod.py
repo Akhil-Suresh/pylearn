@@ -8,10 +8,34 @@
 		
 	# 	The class method can be called both by the class and its object.
 
+class NameInvalidError(Exception):
+	pass
 
-	class Person(object):
-		age = 25
+class UserAccount(object):
+    def __init__(self, *args, **kwargs):
+        self.first_name = kwargs.get('first', '')
+        self.last_name = kwargs.get('last', '')
+        
+    def __str__(self):
+        return '{} {}'.format(self.first_name , self.last_name)
 
-		@classmethod
-		def get_age(cls):
-			return self.age
+    def __repr__(self):
+    	return 'UserAccount({} {})'.format(self.first_name, self.last_name)
+    
+    @classmethod
+    def name_from_string(cls, string):
+        name = string.split(' ')
+        return cls(first=name[0], last=name[1])
+
+    @staticmethod
+    def is_user_name_valid(name):
+    	if name == ''
+    	raise NameInvalidError('Entered username is invalid')
+
+names = ['Akhil Suresh', 'Sajitha Kumari', 'Ebin Paulose', 'Sooraj Lal']
+
+user_accounts = [UserAccount.name_from_string(name) for name in names]
+
+print user_accounts
+
+UserAccount.is_user_name_valid('')
